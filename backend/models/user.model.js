@@ -19,30 +19,48 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  resetPasswordToken: {
+  securityQuestion: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
-  resetPasswordExpires: {
-    type: DataTypes.DATE,
-    allowNull: true,
+  securityAnswer: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  answerHint: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 
 // Hash password before saving
 User.beforeCreate(async (user) => {
   user.password = await bcrypt.hash(user.password, 10);
+  // Hash security answer too for extra security
+  user.securityAnswer = await bcrypt.hash(
+    user.securityAnswer.toLowerCase(),
+    10
+  );
 });
 
 User.beforeUpdate(async (user) => {
   if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, 10);
   }
+  if (user.changed("securityAnswer")) {
+    user.securityAnswer = await bcrypt.hash(
+      user.securityAnswer.toLowerCase(),
+      10
+    );
+  }
 });
 
-// Instance method to compare password
 User.prototype.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
+};
+
+User.prototype.compareSecurityAnswer = async function (candidateAnswer) {
+  return bcrypt.compare(candidateAnswer.toLowerCase(), this.securityAnswer);
 };
 
 module.exports = User;
