@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "basic auth api for demonstration of a basic user auth kotlin app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdullah-Sajjad026/basic-user-auth.git"
+  },
+  "keywords": [
+    "nodejs",
+    "backend",
+    "basic-auth",
+    "jwts"
+  ],
+  "author": "Abdullah-Sajjad026",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdullah-Sajjad026/basic-user-auth/issues"
+  },
+  "homepage": "https://github.com/Abdullah-Sajjad026/basic-user-auth#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  }
+}
